@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>IPTC Editor</title>
+    <link rel="stylesheet" href="style.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Spline+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+<div class="app-container">
+    <header>
+        <h1>IPTC Editor</h1>
+    </header>
+
+    <main>
+        <section class="upload-section">
+            <div class="upload-box" id="drop-zone">
+                <div class="upload-text">Dateien via Drag & Drop hochladen<br />oder</div>
+                <label class="upload-button">
+                    Dateien auswählen
+                    <input type="file" id="imageInput" multiple hidden />
+                </label>
+            </div>
+        </section>
+
+        <section class="gallery-section">
+            <div class="gallery-list" id="gallery"></div>
+        </section>
+
+        <section class="preview-section">
+            <div class="image-preview">
+                <img src="https://placehold.co/600x800" alt="Preview" id="preview-image" />
+            </div>
+            <table class="metadata-table">
+                <tr><td><strong>Object Name</strong></td><td id="meta-name">-</td></tr>
+                <tr><td><strong>Creator</strong></td><td id="meta-creator">-</td></tr>
+                <tr><td><strong>Credit</strong></td><td id="meta-credit">-</td></tr>
+                <tr><td><strong>Source</strong></td><td id="meta-source">-</td></tr>
+            </table>
+        </section>
+    </main>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
