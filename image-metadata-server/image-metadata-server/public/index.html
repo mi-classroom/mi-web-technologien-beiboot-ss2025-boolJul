@@ -6,6 +6,8 @@
     <title>IPTC Editor</title>
     <link rel="stylesheet" href="style.css" />
     <link href="https://fonts.googleapis.com/css2?family=Spline+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Leaflet CSS für Karte -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 </head>
 <body>
 <div class="app-container">
@@ -14,17 +16,95 @@
     </header>
 
     <main>
-        <section class="upload-section">
-            <div class="upload-box" id="drop-zone">
-                <div class="upload-text">Dateien via Drag & Drop hochladen<br />oder</div>
-                <label class="upload-button">
-                    Dateien auswählen
-                    <input type="file" id="imageInput" multiple hidden />
-                </label>
-            </div>
-        </section>
+        <div class="left-side-container">
+            <section class="map-section">
+                <h3>📍 Aufnahmeorte</h3>
+                <div id="map" style="flex: 1; border-radius: 4px;"></div>
+                <div class="map-info">
+                    <span id="map-stats">Lade GPS-Daten...</span>
+                </div>
+            </section>
+
+            <section class="upload-section">
+                <div class="upload-box" id="drop-zone">
+                    <div class="upload-text">Dateien via Drag & Drop hochladen<br />oder</div>
+                    <label class="upload-button">
+                        Dateien auswählen
+                        <input type="file" id="imageInput" multiple hidden />
+                    </label>
+                </div>
+                
+                <!-- Upload-Fortschrittsanzeige -->
+                <div class="upload-progress" id="upload-progress" style="display: none;">
+                    <div class="progress-header">
+                        <span class="progress-text">Upload läuft...</span>
+                        <span class="progress-percentage">0%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progress-fill"></div>
+                    </div>
+                    <div class="upload-files" id="upload-files"></div>
+                </div>
+            </section>
+        </div>
 
         <section class="gallery-section">
+            <!-- Filter-Bereich -->
+            <div class="filter-section">
+                <input type="text" id="filter-input" placeholder="🔍 Bilder filtern (Name, Künstler, Keywords...)" />
+                
+                <!-- Format-Filter -->
+                <div class="filter-row">
+                    <label>Format:</label>
+                    <select id="filter-type">
+                        <option value="all">Alle Formate</option>
+                        <option value="raw">RAW-Dateien</option>
+                        <option value="jpg">JPEG-Dateien</option>
+                        <option value="png">PNG-Dateien</option>
+                    </select>
+                </div>
+                
+                <!-- Sortierung -->
+                <div class="filter-row">
+                    <label>Sortieren nach:</label>
+                    <select id="sort-by">
+                        <option value="capture">Aufnahmedatum</option>
+                        <option value="upload">Uploaddatum</option>
+                        <option value="name">Name</option>
+                    </select>
+                    <select id="sort-order" title="Reihenfolge">
+                        <option value="desc">Absteigend</option>
+                        <option value="asc">Aufsteigend</option>
+                    </select>
+                </div>
+                
+                <!-- Meta-Tag Filter -->
+                <div class="filter-row">
+                    <label>Künstler:</label>
+                    <select id="filter-artist">
+                        <option value="all">Alle Künstler</option>
+                    </select>
+                </div>
+                
+                <div class="filter-row">
+                    <label>Keywords:</label>
+                    <select id="filter-keywords">
+                        <option value="all">Alle Keywords</option>
+                    </select>
+                </div>
+                
+                <div class="filter-row">
+                    <label>Copyright:</label>
+                    <select id="filter-copyright">
+                        <option value="all">Alle Copyright</option>
+                    </select>
+                </div>
+                
+                <div class="filter-actions">
+                    <button id="clear-filter" title="Alle Filter zurücksetzen">🗑️ Filter zurücksetzen</button>
+                    <button id="toggle-filters" title="Erweiterte Filter ein-/ausblenden">⚙️ Erweiterte Filter</button>
+                </div>
+            </div>
             <div class="gallery-list" id="gallery"></div>
         </section>
 
@@ -42,6 +122,8 @@
     </main>
 </div>
 
+<!-- Leaflet JavaScript für Karte -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script src="script.js"></script>
 </body>
 </html>
